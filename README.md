@@ -17,7 +17,7 @@ Load model
 docker exec -it ollama ollama pull qwen2.5-coder:32b-instruct-q4_K_M
 ```
 
-### Launcch Aider
+### Launch Aider
 
 ```bash
 git clone https://github.com/HardAndHeavy/aider-docker
