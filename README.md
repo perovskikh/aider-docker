@@ -1,5 +1,7 @@
 # Launch Aider in Docker
 
+Vibe coding with [Aider](https://github.com/Aider-AI/aider) and local [Ollama](https://github.com/ollama/ollama) models.
+
 ### Launch Ollama
 
 Nvidia
