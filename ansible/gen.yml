@@ -1,0 +1,56 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  vars_prompt:
+     - name: project_dir
+       prompt: Project directory
+       default: "{{ lookup('file', '../secure/var/project_dir', errors='ignore') | default('./app', true) }}"
+       private: false
+     - name: model_name
+       prompt: Model name
+       default: "{{ lookup('file', '../secure/var/model_name', errors='ignore') | default('qwen2.5-coder:32b-instruct-q4_K_M', true) }}"
+       private: false
+     - name: ollama_api
+       prompt: Ollama API
+       default: "{{ lookup('file', '../secure/var/ollama_api', errors='ignore') | default('http://localhost:11434', true) }}"
+       private: false
+     - name: conventions
+       prompt: Conventions
+       default: "{{ lookup('file', '../secure/var/conventions', errors='ignore') | default('The project is being developed in python', true) }}"
+       private: false
+ 
+  tasks:
+    - name: Creating a variable cache folder secure/var
+      ansible.builtin.file:
+        path: ../secure/var
+        state: directory
+    - name: Save project_dir
+      local_action: copy content={{ project_dir }} dest=../secure/var/project_dir
+    - name: Save model_name
+      local_action: copy content={{ model_name }} dest=../secure/var/model_name
+    - name: Save ollama_api
+      local_action: copy content={{ ollama_api }} dest=../secure/var/ollama_api
+    - name: Save conventions
+      local_action: copy content={{ conventions }} dest=../secure/var/conventions
+
+    - name: Creating the config folder
+      ansible.builtin.file:
+        path: ../config
+        state: directory
+    - name: Creating a file .aider.conf.yml
+      ansible.builtin.template:
+        src: .aider.conf.yml.j2
+        dest: ../config/.aider.conf.yml
+    - name: Creating a file .aider.model.settings.yml
+      ansible.builtin.template:
+        src: .aider.model.settings.yml.j2
+        dest: ../config/.aider.model.settings.yml
+    - name: Creating a file .env
+      ansible.builtin.template:
+        src: .env.j2
+        dest: ../config/.env
+    - name: Creating a file CONVENTIONS.md
+      ansible.builtin.template:
+        src: CONVENTIONS.md.j2
+        dest: ../config/CONVENTIONS.md
