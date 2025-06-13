@@ -23,6 +23,10 @@ Load model
 ```bash
 docker exec -it ollama ollama pull qwen2.5-coder:32b-instruct-q4_K_M
 ```
+or
+```bash
+docker exec -it ollama ollama pull deepseek-r1:8b
+```
 
 ### Launch Aider
 
