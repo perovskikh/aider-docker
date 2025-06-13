@@ -4,6 +4,11 @@ Vibe coding with [Aider](https://github.com/Aider-AI/aider) and local [Ollama](h
 
 ### Launch Ollama
 
+CPU
+```bash
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+```
+
 Nvidia
 ```bash
 docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
