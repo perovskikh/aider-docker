@@ -13,7 +13,7 @@
        private: false
      - name: ollama_api
        prompt: Ollama API
-       default: "{{ lookup('file', '../secure/var/ollama_api', errors='ignore') | default('http://localhost:11434', true) }}"
+       default: "{{ lookup('file', '../secure/var/ollama_api', errors='ignore') | default('http://host.docker.internal:11434', true) }}"
        private: false
      - name: conventions
        prompt: Conventions
